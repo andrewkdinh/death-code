@@ -15,6 +15,7 @@ cp .env.example .env
 git clone https://github.com/daniel-e/rust-captcha.git rust-captcha
 docker-compose up -d
 ```
+3. Visit `http://localhost:33284`
 
 ## Credits
 
