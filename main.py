@@ -46,7 +46,7 @@ def index():
             print(e)
             return render_template("message.html", message="Invalid data")
     captcha = captcha_get(ttl = 300)
-    return render_template("index.html", polynomial = POLYNOMIAL, captcha_id = captcha[0], captcha_png = captcha[1])
+    return render_template("index.html", polynomial = POLYNOMIAL, domain=DOMAIN, captcha_id = captcha[0], captcha_png = captcha[1])
 
 @app.route("/<attempt_num>", methods=["GET", "POST"])
 def attempt(attempt_num):
