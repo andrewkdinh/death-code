@@ -26,27 +26,31 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     global POLYNOMIAL, LAST_ENDPOINT_GET, DAYS_TO_ALLOW
-    if request.method == "POST":
-        if ALIVE_PATH and DAYS_TO_ALLOW and LAST_ENDPOINT_GET and (datetime.today() - LAST_ENDPOINT_GET).days < DAYS_TO_ALLOW:
-            return render_template("message.html", message="Andrew is still alive. Try again another time")
-        captcha_id = request.form.get('captcha-id')
-        captcha_solution = request.form.get('captcha-solution')
-        v = captcha_validate(captcha_id, captcha_solution)
-        if not v[0]:
-            return render_template('message.html', message = "Failed captcha", attempts_left = v[1])
-        try:
-            coords = []
-            for key in request.form:
-                if 'x' == key[0]:
-                    coords.append(Coordinate(int(request.form[key]), int(request.form['y' + key[1]])))
-            if POLYNOMIAL.valid_combination(coords):
-                return render_template("congrats.html", polynomial=POLYNOMIAL, domain=DOMAIN)
-            return render_template("message.html", message="Those points weren't valid", attempts_left = v[1])
-        except Exception as e:
-            print(e)
-            return render_template("message.html", message="Invalid data")
-    captcha = captcha_get(ttl = 300)
-    return render_template("index.html", polynomial = POLYNOMIAL, domain=DOMAIN, captcha_id = captcha[0], captcha_png = captcha[1])
+    try:
+        if request.method == "POST":
+            if ALIVE_PATH and DAYS_TO_ALLOW and LAST_ENDPOINT_GET and (datetime.today() - LAST_ENDPOINT_GET).days < DAYS_TO_ALLOW:
+                return render_template("message.html", message="Andrew is still alive. Try again another time")
+            captcha_id = request.form.get('captcha-id')
+            captcha_solution = request.form.get('captcha-solution')
+            v = captcha_validate(captcha_id, captcha_solution)
+            if not v[0]:
+                return render_template('message.html', message = "Failed captcha", attempts_left = v[1])
+            try:
+                coords = []
+                for key in request.form:
+                    if 'x' == key[0]:
+                        coords.append(Coordinate(int(request.form[key]), int(request.form['y' + key[1]])))
+                if POLYNOMIAL.valid_combination(coords):
+                    return render_template("congrats.html", polynomial=POLYNOMIAL, domain=DOMAIN)
+                return render_template("message.html", message="Those points weren't valid", attempts_left = v[1])
+            except Exception as e:
+                print(e)
+                return render_template("message.html", message="Invalid data")
+        captcha = captcha_get(ttl = 300)
+        return render_template("index.html", polynomial = POLYNOMIAL, domain=DOMAIN, captcha_id = captcha[0], captcha_png = captcha[1])
+    except Exception as e:
+        print(e)
+        return render_template('message.html', message="Error ocurred") 
 
 @app.route("/<attempt_num>", methods=["GET", "POST"])
 def attempt(attempt_num):
