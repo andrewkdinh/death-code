@@ -19,6 +19,6 @@ services:
   rust-captcha:
     container_name: rust-captcha
     build:
-      context: ./rust-captcha/docker
+      context: ../rust-captcha/docker
     restart: unless-stopped
     

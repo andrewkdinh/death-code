@@ -9,10 +9,10 @@ Death Code is an entirely self-hosted web application that utilizes [Sharmir's S
 
 ```bash
 git clone https://github.com/andrewkdinh/death-code.git
+git clone https://github.com/daniel-e/rust-captcha.git
 cd death-code
 cp .env.example .env
 # Edit .env
-git clone https://github.com/daniel-e/rust-captcha.git rust-captcha
 docker-compose up -d
 ```
 3. Visit `http://localhost:33284`
