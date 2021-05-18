@@ -1,6 +1,6 @@
 # Death Code
 
-Death Code is an entirely self-hosted web application that utilizes [Sharmir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) to share secrets after you die. After splitting a secret among a group of people, the secret can only be reconstructed when a sufficient number of people combine their parts together, presumably only after you are gone from this earth. 
+Death Code is an entirely self-hosted web application that utilizes [Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) to share secrets after you die. After splitting a secret among a group of people, the secret can only be reconstructed when a sufficient number of people combine their parts together, presumably only after you are gone from this earth. 
 
 ## Building
 
